@@ -1,0 +1,35 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    environment:
+      SA_PASSWORD: "@Password123"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    networks:
+      - mynetwork
+
+  api-myrecipebook:
+    image: asafecode/api-myrecipebook:latest 
+    container_name: backend
+    depends_on:
+      - sqlserver
+    ports:
+      - "8080:8080"
+    networks:
+      - mynetwork
+
+  frontend:
+    image: asafecode/front-myrecipebook:latest 
+    container_name: frontend
+    ports:
+      - "5173:5173"  
+    networks:
+      - mynetwork
+    depends_on:
+      - api-myrecipebook
+
+networks:
+  mynetwork:
+    driver: bridge
