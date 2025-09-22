@@ -2,7 +2,7 @@ name: Docker Image CD
 
 on:
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
 jobs:
   build:
@@ -15,5 +15,6 @@ jobs:
 
       - name: Build and Push Docker image
         run: | 
+          cd myrecipebook
           docker build -t "${{ secrets.DOCKERHUB_USERNAME }}/front-myrecipebook:latest" .
           docker push "${{ secrets.DOCKERHUB_USERNAME }}/front-myrecipebook:latest"
