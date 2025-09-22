@@ -1,4 +1,5 @@
 <script>
+  import "../app.css";
   import { fly, scale } from 'svelte/transition';
   import { registerUser, loginUser } from '../api/auth'; 
   import { token, user } from '../stores/auth';
